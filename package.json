@@ -1,0 +1,18 @@
+{
+  "name": "icloud-notes-exporter",
+  "version": "0.1.0-alpha.1",
+  "description": "iCloud Notes to Markdown exporter for Windows using Chrome DevTools Protocol",
+  "type": "module",
+  "main": "src/main.mjs",
+  "scripts": {
+    "start": "node src/main.mjs",
+    "start-edge": "node src/start-edge.mjs",
+    "verify": "node src/verify-env.mjs",
+    "check": "node --check src/main.mjs && node --check src/start-edge.mjs && node --check src/verify-env.mjs && node --check src/cdp/connect.mjs && node --check src/cdp/store.mjs && node --check src/export/writer.mjs && node --check src/utils/filename.mjs && node --check src/utils/manifest.mjs && node --check src/utils/progress.mjs"
+  },
+  "keywords": ["icloud", "notes", "markdown", "export", "cdp", "windows"],
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
