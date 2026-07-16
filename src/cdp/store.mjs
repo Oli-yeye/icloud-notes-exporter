@@ -18,8 +18,13 @@
  * __CW__allNotes has everything.
  */
 export const CLICK_FOLDER_JS = `(function() {
-  var t = Array.from(document.querySelectorAll('.folder-title'))
-    .find(function(el) { return (el.textContent||'').trim() === '备忘录'; });
+  var candidates = ['所有 iCloud 备忘录', '备忘录'];
+  var t = null;
+  for (var ci = 0; ci < candidates.length; ci++) {
+    t = Array.from(document.querySelectorAll('.folder-title'))
+      .find(function(el) { return (el.textContent||'').trim() === candidates[ci]; });
+    if (t) break;
+  }
   if (!t) return 'NOT_FOUND';
   var row = t.closest('.folder-list-item-container,[role="treeitem"]') || t.parentElement;
   var btn = row.querySelector('button.folder-title-select-button') || row.querySelector('button') || t;

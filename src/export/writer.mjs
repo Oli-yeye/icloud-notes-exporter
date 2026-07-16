@@ -5,6 +5,17 @@ import fs from "fs";
 import path from "path";
 
 /**
+ * Format ISO date to human-readable local time: "YYYY-MM-DD HH:MM:SS"
+ */
+function formatCreated(isoStr) {
+  if (!isoStr) return "";
+  const d = new Date(isoStr);
+  if (isNaN(d)) return isoStr;
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+}
+
+/**
  * Build Markdown content from note data.
  * @param {object} note - { title, content, created, locked, pinned, formerLocked }
  * @returns {string} Markdown text
@@ -17,7 +28,7 @@ export function buildMarkdown(note) {
 
   const tagPrefix = tags.length > 0 ? "[" + tags.join("][") + "] " : "";
   let md = `# ${tagPrefix}${note.title}\n\n`;
-  if (note.created) md += `> 创建: ${note.created}\n\n`;
+  if (note.created) md += `> 创建: ${formatCreated(note.created)}\n\n`;
 
   if (note.locked && !note.content) {
     md += `> ⚠️ 此备忘录已锁定，内容无法导出。请在 iPhone 上解锁后重新导出。\n\n`;
